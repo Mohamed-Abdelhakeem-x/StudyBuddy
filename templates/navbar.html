@@ -1,7 +1,11 @@
-<a href="{% url 'home' %}">
-    <h4>Home</h4>
-</a>
-<a href="{% url 'create-room' %}">
-    <h4>Create Room</h4>
-</a>
+<nav class="navbar">
+    <a href="{% url 'home' %}" style="font-size: large;">Home</a>
+    <a href="{% url 'create-room' %}"style="font-size: large">Create Room</a>
+    <a href="{% url 'Login' %}" style="font-size: large; float: right; margin-left: 20px;">Login</a>
+    <form method="GET" action="{% url 'home' %}" style="display: inline;">
+        <input type="text" placeholder="Search Rooms...." name="q" style="font-size: medium; margin-left: 20px; border-radius: 10px; padding: 2px;">
+    </form>
+    
+</nav>
+
 <hr>
