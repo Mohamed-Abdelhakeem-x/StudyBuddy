@@ -19,27 +19,29 @@
         <h3>Browse Topics</h3>
         <hr>
         <a href="{% url 'home'%}">
-                    <h4 style="padding: 5px; font-size:15px">All</h4>
+                    <h4 style="padding: 5px; font-size:15px; color:black;">All</h4>
         </a>
         {% for topic in topics %}
             <div>
                 <a href="{% url 'home'%}?q={{topic.name}}">
-                    <h5 style="padding: 5px; font-size:15px">{{topic.name}}</h5>
+                    <h5 style="padding: 5px; font-size:15px; color:brown;">{{topic.name}}</h5>
                 </a>
             </div>
         {% endfor %}
     </div>
 
     <div>
-        <h3><span style="color: brown;">{{ room_count }}</span> Rooms Available!</h3>
+        <h3><span style="color: brown; margin-left: 10px;">{{ room_count }}</span> Rooms Available!</h3>
         {% for room in rooms %}
-            <div>
+            <div style="border: 1px solid black; padding: 10px; margin-bottom: 10px; margin-left: 10px;">
                 <span>@{{room.host.username}}</span>
                 <h5><a href="{% url 'room' room.id %}">{{room.name}}</a></h5>
                 <h5>{{room.topic.name}}</h5> 
+                {% if request.user == room.host%}
                 <a href="{% url 'update-room' room.id %}">Update</a>
                 <a href="{% url 'delete-room' room.id %}">Delete</a>
-                <hr>
+                {% endif %}
+                <p>{{room.description|slice:":100"}}{% if room.description|length > 100 %}...{% endif %}</p>
             </div>
         {% endfor %}
     </div>
