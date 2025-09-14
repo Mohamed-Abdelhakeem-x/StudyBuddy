@@ -13,7 +13,7 @@
         <!-- Right side -->
         <div style="display: flex; align-items: center; gap: 10px;">
             {% if request.user.is_authenticated %}
-                <a href="" style="font-size: large; color:brown;">{{request.user.username}}</a>
+                <a href="{% url 'user-profile' user.id %}" style="font-size: large; color:brown;">{{request.user.username}}</a>
                 <a href="{% url 'Logout' %}" style="font-size: large;  color:black;">Logout</a>
             {% else %}
                 <a href="{% url 'Login' %}" style="font-size: large; color:black;">Login</a>

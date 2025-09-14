@@ -3,7 +3,7 @@
     {% for message in room_messages %}
         <div class="message" style="border: 1px solid black; padding: 10px; margin-bottom: 10px; margin-left: 10px;">
             <span style="display: block; margin-bottom:5px">{{message.room}}</span>
-            <span>@{{message.user}}</span>
+            <a href="{% url 'user-profile' message.user.id %}" style="color: brown;">@{{message.user}}</a>
             <span style="font-size: 10px; color: gray;">{{message.created|timesince}} ago.</span>
             <p style="font-size: 14px;">{{message.body|slice:":100"}}{% if message.body|length > 100 %}...{% endif %}</p>
             {% if request.user == message.user %}
