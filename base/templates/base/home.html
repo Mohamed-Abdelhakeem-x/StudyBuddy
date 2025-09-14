@@ -8,7 +8,6 @@
         grid-template-columns: 1fr 3fr;
 
     }
-
 </style>
 
 <h1>Welcome to Studdy Buddy Community!</h1>
@@ -17,17 +16,22 @@
 
     <div>
         <h3>Browse Topics</h3>
+        
         <hr>
+        
         <a href="{% url 'home'%}">
                     <h4 style="padding: 5px; font-size:15px; color:black;">All</h4>
         </a>
+        
         {% for topic in topics %}
             <div>
                 <a href="{% url 'home'%}?q={{topic.name}}">
                     <h5 style="padding: 5px; font-size:15px; color:brown;">{{topic.name}}</h5>
                 </a>
             </div>
+        
         {% endfor %}
+
     </div>
 
     <div>
