@@ -57,16 +57,19 @@ def registerPage(request):
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
-    topics = Topic.objects.all()
     # Filtering rooms based on search query
     rooms = Room.objects.filter(
         Q(topic__name__icontains = q) | 
         Q(name__icontains = q) |
         Q(description__icontains = q) |
         Q(host__username__icontains = q)
-        ) 
+        )
+     
+    topics = Topic.objects.all()
     room_count = rooms.count()
-    context = {'rooms': rooms, 'topics': topics, 'room_count': room_count}
+    room_messages = Message.objects.filter(Q(room__topic__name__icontains = q))
+
+    context = {'rooms': rooms, 'topics': topics, 'room_count': room_count, 'room_messages': room_messages}
     return render(request, 'base/home.html', context)
 
 def room(request, pk):
@@ -133,7 +136,7 @@ def deleteMessage(request, pk):
         return HttpResponse('You are not allowed here!!')
     if request.method == 'POST':
         message.delete()
-
+        return redirect('room', pk=message.room.id)
     return render(request, 'base/delete.html', {'obj': message})
 
 @login_required(login_url='Login')
